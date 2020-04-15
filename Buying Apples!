@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int tc;
+ 	cin >> tc;
+ 	while(tc--)
+ 	{
+  	int n, k;
+  	cin >> n >> k;
+  	int arr[k+1], ans[k+1];
+  	for(int i = 1; i <= k; i++)
+  		cin >> arr[i];
+	for(int i = 1; i <= k; i++)
+		ans[i] = arr[i];
+  	for(int i = 2; i <= k; i++) {
+   		for(int j = 1; j < i; j++) {
+    		if(arr[i-j] == -1  || ans[j] == -1)
+     			continue;
+    		if(ans[i] == -1)
+     			ans[i] = ans[j] + ans[i-j];
+   			else
+    			ans[i] = min(ans[i], ans[j] + ans[i-j]);
+   		}
+   	}
+  	if(k==0)
+   		cout << "0\n";
+  	else
+  		cout << ans[k] << "\n";
+ 	}
+	return 0;
+}
