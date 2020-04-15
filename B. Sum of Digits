@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	string s;
+	cin >> s;
+	int ans = 0;
+    while (s.size() > 1) {
+        int n = 0;
+        for(unsigned int i = 0; i < s.length(); i++) 
+        	n +=s [i] - '0';
+        s = to_string(n);
+        ans++;
+    }
+    cout << ans << endl;
+    return 0;
+}
