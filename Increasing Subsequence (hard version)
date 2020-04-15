@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int arr[200100];
+int sorted[200100];
+string str;
+
+int solve(int a[], int l, int r, int t, string &_s) {
+	int len = 0;
+	while (l <= r) {
+		if (a[l] <= sorted[t] && a[r] <= sorted[t])
+			return len;
+		if (a[l] <= sorted[t]) {
+			sorted[++t] = a[r--];
+			_s += 'R';
+			len++;
+		}
+		else if (a[r] <= sorted[t]) {
+			sorted[++t] = a[l++];
+			_s += 'L';
+			len++;
+		}
+		else if (a[l] > a[r]) {
+			sorted[++t] = a[r--];
+			_s += 'R';
+			len++;
+		}
+		else if (a[l] < a[r]) {
+			sorted[++t] = a[l++];
+			_s += 'L';
+			len++;
+		}
+		else {
+			int p, q;
+			string s1 = "L", s2 = "R";
+			sorted[++t] = a[l];
+			p = solve(a, l+1, r, t, s1);
+			q = solve(a, l, r-1, t, s2);
+			len++;
+			if (p > q) {
+				_s += s1;
+				return len+p;
+			}
+			else {
+				_s += s2;
+				return len+q;
+			}
+		}
+	}
+	return len;
+}
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int n, ans = 0;
+	cin >> n;
+	sorted[0] = 0;
+	int left = 1, right = n, top = 0;
+	for (int i = 1; i <= n; i++) {
+		cin >> arr[i];
+	}
+	ans = solve(arr, left, right, top, str);
+	cout << ans << "\n";
+	cout << str;
+	return 0;
+}
