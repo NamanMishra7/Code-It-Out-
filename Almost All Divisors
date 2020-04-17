@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0); 
+	bool hash[1000001];
+    memset(hash, true, sizeof(hash)); 
+    for (int p = 2; p * p < 1000001; p++) 
+        if (hash[p] == true) 
+            for (int i = p * 2; i < 1000001; i += p) 
+                hash[i] = false;
+	int tc, n;
+	cin >> tc;
+	while (tc--) {
+		cin >> n;
+		long long arr[n], mx = 0, mn = 99999999;
+		for (int i = 0; i < n; i++) {
+			cin >> arr[i];
+			mx = max(mx, arr[i]);
+			mn = min(mn, arr[i]);
+		}
+		long long x = mx*mn;
+		long long X = x;
+		bool flag = true;
+		int total = 1; 
+	    for (int p = 2; p <= x && p <= 1000001; p++) { 
+	        if (hash[p]) { 
+	            int count = 0; 
+	            if (x % p == 0) { 
+	                while (x % p == 0) { 
+	                    x = x / p; 
+	                    count++; 
+	                } 
+	                total = total * (count + 1); 
+	            } 
+	        } 
+    	} 
+    	if (total-2 != n) {
+    		flag = false;
+    	}
+    	else {
+			for (int i = 0; i < n; i++) {
+				if (X%arr[i] != 0) {
+					flag = false;
+					break;
+				}
+			}
+		}
+		if (flag)
+			cout << X << "\n";
+		else
+			cout << "-1\n";
+	}
+	return 0;
+}
