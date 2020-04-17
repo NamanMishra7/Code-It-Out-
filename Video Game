@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int n, h;
+	cin >> n >> h;
+	int arr[n], _input, currentPos = 0;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	bool holding = false;
+	cin >> _input;
+	while (_input) {
+		if (_input == 1) {
+			if (currentPos)
+				currentPos--;
+		}
+		else if (_input == 2) {
+			if (currentPos != n-1)
+				currentPos++;
+		}
+		else if (_input == 3) {
+			if (!holding && arr[currentPos] > 0) {
+				holding = true;
+				arr[currentPos]--;
+			}
+		}
+		else if (_input == 4) {
+			if (holding && arr[currentPos] < h) {
+				holding = false;
+				arr[currentPos]++;
+			}
+		}
+		cin >> _input;
+	}
+	for (int i = 0; i < n; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << "\n";
+	return 0;
+}
