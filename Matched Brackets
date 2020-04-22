@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+	#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+	freopen("output.txt", "w", stdout);
+	#endif
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	int n, _stack = 0, depth = 0, depth_index = 0, maxlen = 0, max_index = 0, start = 0;
+	cin >> n;
+	int arr[n];
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	for (int i = 0; i < n; i++) {
+		if (arr[i] == 1) {
+			_stack++;
+			if (_stack > depth) {
+				depth = _stack;
+				depth_index = i+1;
+			}
+			if (_stack == 1) {
+				start = i;
+			}
+		}
+		else {
+			_stack--;
+			if (_stack == 0) {
+				if (i-start+1 > maxlen) {
+					maxlen = i-start+1;
+					max_index = start+1;
+				}				
+			}
+		}
+	}
+	cout << depth << " " << depth_index << " " << maxlen << " " << max_index << "\n";
+	return 0;
+}
